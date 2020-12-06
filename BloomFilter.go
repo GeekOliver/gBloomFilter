@@ -51,12 +51,18 @@ func (bf *BloomFilter) Add(data []byte) *BloomFilter {
 		defer bf.lock.Unlock()
 	}
 	h := baseHash(data)
+	status := true
 	for i := uint64(0); i < bf.k; i++ {
 		loc := location(h, i)
 		slot, mod := bf.location(loc)
+		if bf.keys[slot]&(1<<mod) == 0 {
+			status =  false
+		}
 		bf.keys[slot] |= 1 << mod
 	}
-	bf.n++
+	if status {
+		bf.n++
+	}
 	return bf
 }
 
