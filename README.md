@@ -1,2 +1,2 @@
 # gBloomFilter
-bloom filter in golang,这是用go开发的布隆过滤器
+bloom filter in golang,这1是用go开发的布隆过滤器
